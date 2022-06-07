@@ -1,0 +1,24 @@
+const axios = require('axios').default;
+
+export default function getRules() {
+    const result = ''
+    axios.get(process.env.REACT_APP_API_URL + '/getFilters',
+    {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer '+sessionStorage.getItem('token')
+      }
+    })
+    .then(function (response) {
+        console.log('getRules', response);
+        if(response.request.status === 200) {
+            result = response.data.filters
+        }
+        else alert(response.data.error)
+    })
+    .catch(function (error) {
+        console.log('error catch getRules', error);
+    });
+    return result;
+}
+
